@@ -1,13 +1,21 @@
 {
   "name": "cumulocity-tracking-replay-map-widget",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Displays track lines of tracking device with replay feature on map.",
+  "author": "Darpankumar Lalani - Software AG, Global Presales",
+  "license": "Apache 2.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "buildPatch": "cd projects/gp-tracking-replay-map && npm version patch && ng build gp-tracking-replay-map && cd ../../  && cd ./dist/gp-tracking-replay-map && npm pack && move *.tgz ../",
+    "buildMinor": "cd projects/gp-tracking-replay-map && npm version minor && ng build gp-tracking-replay-map && cd ../../ && cd ./dist/gp-tracking-replay-map && npm pack && move *.tgz ../",
+    "buildMajor": "cd projects/gp-tracking-replay-map && npm version major && ng build gp-tracking-replay-map && cd ../../ && cd ./dist/gp-tracking-replay-map && npm pack && move *.tgz ../",
+    "serve": "ng build gp-tracking-replay-map && npm i dist/gp-tracking-replay-map && ng s",
+    "runtime": "gulp --gulpfile ./runtime/gulpfile.js"
   },
   "private": true,
   "dependencies": {
@@ -18,14 +26,24 @@
     "@angular/forms": "~8.2.0",
     "@angular/platform-browser": "~8.2.0",
     "@angular/platform-browser-dynamic": "~8.2.0",
+    "@angular/upgrade": "8.2.13",
     "@angular/router": "~8.2.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "@c8y/ng1-modules": "1007.2.0",
+    "@c8y/ngx-components": "1007.2.0",
+    "@c8y/style": "1007.2.0",
+    "leaflet2": "npm:leaflet@^1.6.0",
+    "fontawesome": "4.7.2",
+    "angular-resize-event": "^1.1.1",
+    "moment": "^2.26.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.802.2",
+    "@angular-devkit/build-ng-packagr": "~0.802.2",
     "@angular/cli": "~8.2.2",
+    "@angular/cdk": "^8.2.3",
     "@angular/compiler-cli": "~8.2.0",
     "@angular/language-service": "~8.2.0",
     "@types/node": "~8.9.4",
@@ -39,9 +57,24 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "ng-packagr": "^9.1.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
+    "tsickle": "^0.36.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.5.3"
+    "typescript": "~3.5.3",
+    "css-loader": "^3.5.3",
+    "del": "^5.1.0",
+    "delay": "^4.3.0",
+    "fs-extra": "^9.0.0",
+    "gulp": "^4.0.2",
+    "gulp-filter": "^6.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-zip": "^5.0.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-external-import": "^2.2.3",
+    "gulp-inject-string": "^1.1.2"
   }
 }

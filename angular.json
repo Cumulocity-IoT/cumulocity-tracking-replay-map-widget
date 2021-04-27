@@ -67,7 +67,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cumulocity-tracking-replay-map-widget:build"
+            "browserTarget": "cumulocity-tracking-replay-map-widget:build",
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -121,6 +122,41 @@
             "production": {
               "devServerTarget": "cumulocity-tracking-replay-map-widget:serve:production"
             }
+          }
+        }
+      }
+    },
+    "gp-tracking-replay-map": {
+      "projectType": "library",
+      "root": "projects/gp-tracking-replay-map",
+      "sourceRoot": "projects/gp-tracking-replay-map/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/gp-tracking-replay-map/tsconfig.lib.json",
+            "project": "projects/gp-tracking-replay-map/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/gp-tracking-replay-map/src/test.ts",
+            "tsConfig": "projects/gp-tracking-replay-map/tsconfig.spec.json",
+            "karmaConfig": "projects/gp-tracking-replay-map/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/gp-tracking-replay-map/tsconfig.lib.json",
+              "projects/gp-tracking-replay-map/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }

@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "gp-tracking-replay-map": [
+        "dist/gp-tracking-replay-map"
+      ],
+      "gp-tracking-replay-map/*": [
+        "dist/gp-tracking-replay-map/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

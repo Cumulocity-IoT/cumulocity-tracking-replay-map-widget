@@ -1,0 +1,13 @@
+<div (resized)="onResized($event)" class="trackingReplay-map-root">
+    <div #trInfoRef>
+      <div class="tr-map-header-bar">
+        <div class="tr-map-header">
+            <button (click)="next()">Next</button>
+          <button  style="color:#1776BF;" type="button" class="button" (click)="refresh()"><span
+              class="fa fa-refresh"></span></button>
+        </div>
+      </div>
+    </div>
+    
+    <div #trmapRef [style.height.px]="height" [style.width.px]="width"></div>
+  </div>

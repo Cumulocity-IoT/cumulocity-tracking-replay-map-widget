@@ -1,0 +1,12 @@
+{
+  "name": "Tracking Replay map Runtime Widget",
+  "contextPath": "tracking-replay-runtime-widget",
+  "key": "tracking-replay-runtime-widget-application-key",
+  "contentSecurityPolicy": "default-src 'self'",
+  "icon": {
+    "class": "fa fa-map-pin"
+  },
+  "manifest": {
+    "noAppSwitcher": true
+  }
+}
