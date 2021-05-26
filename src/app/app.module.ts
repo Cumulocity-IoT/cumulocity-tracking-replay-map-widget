@@ -4,11 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { GpTrackingReplayMapModule } from 'projects/gp-tracking-replay-map/src/public-api';
 import { BasicAuth, Client, EventService, FetchClient, InventoryService } from '@c8y/client';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const auth = new BasicAuth({
-  user: '###',
-  password: '###',
-  tenant: '###'
+  user: 'joshika.agrawal@softwareag.com',
+  password: 'Cumulocity@1234',
+  tenant: 't21243144'
 });
 const client = new Client(auth, 'http://localhost:4200');
 client.setAuth(auth);
@@ -20,6 +21,7 @@ const fetchClient = client.core;
   imports: [
     BrowserModule,
     GpTrackingReplayMapModule,
+    NoopAnimationsModule,
   ],
   providers: [
     { provide: FetchClient, useValue: client.core },
