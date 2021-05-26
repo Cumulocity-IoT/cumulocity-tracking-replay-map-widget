@@ -6,18 +6,38 @@ import { GpTrackingReplayMapComponent } from './gp-tracking-replay-map.component
 import { GpTrackingReplayMapService } from './gp-tracking-replay-map.service';
 import { MovingMarkerService } from './movingMarker.service';
 import * as preview from './preview-image';
+import { BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+const materialModules = [
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatDatepickerModule,
+  MatNativeDateModule
+]
 @NgModule({
   declarations: [GpTrackingReplayMapComponent, GpTrackingReplayMapConfigComponent],
   imports: [
     CoreModule,
-    AngularResizedEventModule
+    AngularResizedEventModule,
+    BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    materialModules
   ],
   entryComponents: [GpTrackingReplayMapComponent, GpTrackingReplayMapConfigComponent],
   exports: [GpTrackingReplayMapComponent, GpTrackingReplayMapConfigComponent],
   providers: [
     GpTrackingReplayMapService,
+    BsDatepickerConfig,
     MovingMarkerService,
     {
       provide: HOOK_COMPONENTS,

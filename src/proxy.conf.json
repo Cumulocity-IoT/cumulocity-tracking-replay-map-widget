@@ -1,6 +1,6 @@
 {
     "/": {
-    "target": "<your tenant url>",
+    "target": "https://asset-tracking.eu-latest.cumulocity.com/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "info"

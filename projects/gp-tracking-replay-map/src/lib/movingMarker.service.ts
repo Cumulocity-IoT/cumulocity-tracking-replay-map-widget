@@ -29,8 +29,16 @@ export class MovingMarkerService {
          let k = t / duration;
          k = (k > 0) ? k : 0;
          k = (k > 1) ? 1 : k;
-         return L.latLng(p1.lat + k * (p2.lat - p1.lat),
-             p1.lng + k * (p2.lng - p1.lng));
+         if (p1 && p2) {
+            return L.latLng(p1.lat + k * (p2.lat - p1.lat),
+            p1.lng + k * (p2.lng - p1.lng));
+         } else if (p1) {
+            return L.latLng(p1.lat + k, p1.lng + k);
+
+         } else {
+            return L.latLng(this._latlngs[0].lat , this._latlngs[0].lng);
+         }
+
      };
 
      L.Marker.MovingMarker = L.Marker.extend({
@@ -149,6 +157,10 @@ export class MovingMarkerService {
              this._latlngs.push(L.latLng(latlng));
              this._durations.push(duration);
          },
+         removeLatLng() {
+            this._latlngs.pop();
+            this._durations.pop();
+        },
 
          moveTo(latlng, duration) {
              this._stopAnimation();

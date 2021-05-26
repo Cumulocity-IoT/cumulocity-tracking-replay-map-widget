@@ -1,13 +1,110 @@
 <div (resized)="onResized($event)" class="trackingReplay-map-root">
-    <div #trInfoRef>
-      <div class="tr-map-header-bar">
-        <div class="tr-map-header">
-            <button (click)="next()">Next</button>
-          <button  style="color:#1776BF;" type="button" class="button" (click)="refresh()"><span
-              class="fa fa-refresh"></span></button>
+  <div #trInfoRef>
+    <div class="tr-map-header-bar">
+      <div class="datetime-picker">
+        <div class="form-group datepicker">
+          <input class="form-control" 
+                placeholder="Date" 
+                bsDatepicker
+                [bsConfig]="{ customTodayClass: 'today' }" 
+                (ngModelChange)="onDateTimeChange($event)" 
+                [(ngModel)]="mmStartDate"
+                placeholder="Start Date"
+                />
+        </div>
+        <timepicker class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange($event)">
+        </timepicker>
+      </div>
+      <div class="datetime-picker navbar-form ">
+        <div class="form-group datepicker">
+          <input class="form-control" 
+          placeholder="Date" 
+          [bsConfig]="{ customTodayClass: 'today' }" 
+          bsDatepicker
+          (ngModelChange)="onDateTimeChange($event)" 
+          [(ngModel)]="mmEndDate" 
+          placeholder="End Date"/>
+        </div>
+        <timepicker class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange($event)"></timepicker>
+      </div>
+      <!-- <div class="dropdown" dropdown >
+          <button type="button" title="dropdown-toggle" dropdownToggle class="btn btn-default dropdown-toggle c8y-dropdown">
+            <span>Dropdown</span> <span class="caret"></span>  
+          </button>
+          <ul class="dropdown-menu" *dropdownMenu>
+            <li>
+              <button type="button">Last minute</button>
+            </li>
+            <li>
+              <button type="button">Last hour</button>
+            </li>
+            <li>
+              <button type="button">Last day</button>
+            </li>
+            <li>
+              <button type="button">Last week</button>
+            </li>
+            <li>
+              <button type="button">Last month</button>
+            </li>
+            <li>
+              <button type="button">Custom</button>
+            </li>
+          </ul>
+        </div> -->
+      <div class="navbar-form ">
+        <div class="c8y-select-wrapper">
+          <select class="form-control" [(ngModel)]="dropdownValue"  (change)="onDropdownChange($event.target.value)">
+            <option label="Last minute" value="lastMinute">Last minute</option>
+            <option label="Last hour" value="lastHour" selected="selected">Last hour</option>
+            <option label="Last day" value="lastDay">Last day</option>
+            <option label="Last week" value="lastWeek">Last week</option>
+            <option label="Last month" value="lastMonth">Last month</option>
+            <option label="Custom" value="custom">Custom</option>
+          </select>
+          <span>
+          </span>
         </div>
       </div>
+      <div class="btn-group">
+        <button type="button" title="Filter date range" class="btn btn-default btn-sm" (click)="filter()">
+        <i c8y-icon="filter" class="fa fw fa-filter"></i>
+       </button>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="navbar-form">
+          <div class="btn-group">
+            <button class="btn btn-default btn-sm" title="Slower" (click)="slower()">
+              <i c8y-icon="fast-backward" class="fa fw fa-fast-backward"></i>
+            </button>
+            <button class="btn btn-default btn-sm" title="Play" *ngIf="!isRunning()" (click)="play()">
+              <i c8y-icon="play" class="fa fw fa-play"></i>
+            </button>
+            <button class="btn btn-default btn-sm" title="Play" *ngIf="isRunning()" (click)="pause()">
+              <i c8y-icon="play" class="fa fw fa-pause"></i>
+            </button>
+
+            <button class="btn btn-default btn-sm" title="Faster" (click)="faster()">
+              <i c8y-icon="fast-forward" class="fa fw fa-fast-forward"></i>
+            </button>
+            <button class="btn btn-default btn-sm" title="Reset" (click)="refresh()">
+              <i c8y-icon="repeat" class="fa fw fa-repeat"></i>
+            </button>
+          </div>
+        </li>
+      </ul>
     </div>
-    
-    <div #trmapRef [style.height.px]="height" [style.width.px]="width"></div>
   </div>
+  <div class="widget-gps-tracking-content row">
+    <div class="col-sm-6 col-md-8 col-xs-12 flex-item-v-stretch widget-gps-tracking-map" #trmapRef [style.height.px]="height" ></div>
+    <h4 class="card-title bottom-m-xs">Tracking events</h4>
+    <ul class="list-group col-sm-6 col-md-4 col-xs-12 event-list flex-item-v-stretch">
+      
+      <li class="list-group-item" *ngFor="let dataPoint of dataPoints; let i = index" (click)="playTillPoint(i)">
+        <div class="list-item-icon">
+          <i c8y-icon="c8y-location" class="c8y-icon c8y-icon-location"></i></div>
+        {{dataPoint.time | date : 'short'}} {{dataPoint.c8y_Position.lat}} {{dataPoint.c8y_Position.lng}}
+      </li>
+    </ul>
+  </div>
+</div>
