@@ -33,6 +33,8 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   pLine: any;
   pArray: any = [];
   duration: number;
+  _popup: any;
+  popupContent: string = 'lat: ';
   @Input() set config(newConfig: any) {
     this.inputConfig = newConfig;
     if (this.map) {
@@ -169,7 +171,7 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
       this.height = h - this.mapInfosDiv.offsetHeight - 10; // 10px from styling :/
     } else {
       this.width = this.mapDiv.parentElement.offsetWidth - 20;
-      this.height = this.mapDiv.parentElement.offsetHeight;
+      this.height = this.mapDiv.parentElement.offsetHeight - 20;
       // this.mapDiv.parentElement.offsetHeight -
       // this.mapInfosDiv.offsetHeight -
       // 10; // 10px from styling :/
@@ -285,7 +287,7 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   }
 
   play() {
-    if(this.movingMarker){
+    if (this.movingMarker) {
       if (this.movingMarker.isPaused()) {
         this.movingMarker.resume();
 
@@ -318,13 +320,24 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   }
   drawPolyLine(pointIndex) {
     const mapBounds = new L.LatLngBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position]);
-    for (let i = 0; i < pointIndex; i++) {
-      const pLine = L.polyline([this.dataPoints[i].c8y_Position, this.dataPoints[i + 1].c8y_Position]);
-      pLine.addTo(this.map);
-      this.pArray.push(pLine);
-      this.movingMarker.addLatLng(this.dataPoints[i + 1].c8y_Position, this.duration);
-      mapBounds.extend(this.dataPoints[i + 1].c8y_Position);
+    if (pointIndex > 0) {
+      for (let i = 0; i < pointIndex; i++) {
+        const pLine = L.polyline([this.dataPoints[i].c8y_Position, this.dataPoints[i + 1].c8y_Position]);
+        pLine.addTo(this.map);
+        this.pArray.push(pLine);
+        this.movingMarker.addLatLng(this.dataPoints[i + 1].c8y_Position, this.duration);
+        mapBounds.extend(this.dataPoints[i + 1].c8y_Position);
+      }
       this.map.fitBounds(mapBounds);
+
+    } else {
+      this.movingMarker.addLatLng(this.dataPoints[0].c8y_Position, this.duration);
+      // this.map.flyToBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position], { maxZoom: this.initialMaxZoom });
+     /*  this.map.setView(
+        [this.dataPoints[0].c8y_Position.getCenter().lat, this.dataPoints[0].c8y_Position.getCenter().lng],
+        this.initialMinZoom
+      ); */
+
     }
 
   }
@@ -375,11 +388,16 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onDateTimeChange(event) {
-    console.log(event);
+  onDateTimeChange() {
     this.dropdownValue = 'custom';
   }
+  showMarkerLatLng(e) {
+    this._popup._content = 'lat: ' + e.latlng.lat + ', lng: ' + e.latlng.lng;
+    // this.popupContent = 'lat: ' + e.latlng.lat + ', lng: ' + e.latlng.lng;
+
+  }
   async filter() {
+    this.removePolyLine();
     let startDate = this.mmStartDate;
     let endDate = this.mmEndDate;
     if (isObject(this.mmStartDate) || isObject(this.mmStartDate)) {
@@ -400,29 +418,29 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
       this.dataPoints = response;
       if (this.dataPoints && this.dataPoints.length > 0) {
         this.startingPoints = L.latLng(this.dataPoints[0].c8y_Position);
-        if (this.movingMarker){
+        if (this.movingMarker) {
           this.movingMarker.removeFrom(this.map);
         }
         this.movingMarker = L.Marker.movingMarker(
         [this.startingPoints, this.startingPoints],
         [1000],
-        { icon: this.myIcon }
+        { icon: this.myIcon },
       );
+        this.movingMarker.on('click', this.showMarkerLatLng);
+        this.movingMarker.bindPopup(this.popupContent);
 
         this.movingMarker.addTo(this.map);
         this.map.flyToBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position], { maxZoom: this.initialMaxZoom });
 
 
       } else {
-        const mapBounds = new L.LatLngBounds([0, 0], [0, 0]);
+        // const mapBounds = new L.LatLngBounds([0, 0], [0, 0]);
         this.map.fitWorld();
-        //this.map.flyToBounds(mapBounds, { maxZoom: this.initialMinZoom });
+        // this.map.flyToBounds(mapBounds, { maxZoom: this.initialMinZoom });
 
       }
-
-
     }
-
     return response;
   }
+
 }

@@ -7,12 +7,12 @@
                 placeholder="Date" 
                 bsDatepicker
                 [bsConfig]="{ customTodayClass: 'today' }" 
-                (ngModelChange)="onDateTimeChange($event)" 
+                (ngModelChange)="onDateTimeChange()" 
                 [(ngModel)]="mmStartDate"
                 placeholder="Start Date"
                 />
         </div>
-        <timepicker class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange($event)">
+        <timepicker class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()">
         </timepicker>
       </div>
       <div class="datetime-picker navbar-form ">
@@ -21,37 +21,12 @@
           placeholder="Date" 
           [bsConfig]="{ customTodayClass: 'today' }" 
           bsDatepicker
-          (ngModelChange)="onDateTimeChange($event)" 
+          (ngModelChange)="onDateTimeChange()" 
           [(ngModel)]="mmEndDate" 
           placeholder="End Date"/>
         </div>
-        <timepicker class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange($event)"></timepicker>
+        <timepicker class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()"></timepicker>
       </div>
-      <!-- <div class="dropdown" dropdown >
-          <button type="button" title="dropdown-toggle" dropdownToggle class="btn btn-default dropdown-toggle c8y-dropdown">
-            <span>Dropdown</span> <span class="caret"></span>  
-          </button>
-          <ul class="dropdown-menu" *dropdownMenu>
-            <li>
-              <button type="button">Last minute</button>
-            </li>
-            <li>
-              <button type="button">Last hour</button>
-            </li>
-            <li>
-              <button type="button">Last day</button>
-            </li>
-            <li>
-              <button type="button">Last week</button>
-            </li>
-            <li>
-              <button type="button">Last month</button>
-            </li>
-            <li>
-              <button type="button">Custom</button>
-            </li>
-          </ul>
-        </div> -->
       <div class="navbar-form ">
         <div class="c8y-select-wrapper">
           <select class="form-control" [(ngModel)]="dropdownValue"  (change)="onDropdownChange($event.target.value)">
@@ -95,15 +70,23 @@
       </ul>
     </div>
   </div>
-  <div class="widget-gps-tracking-content row">
-    <div class="col-sm-6 col-md-8 col-xs-12 flex-item-v-stretch widget-gps-tracking-map" #trmapRef [style.height.px]="height" ></div>
-    <h4 class="card-title bottom-m-xs">Tracking events</h4>
-    <ul class="list-group col-sm-6 col-md-4 col-xs-12 event-list flex-item-v-stretch">
-      
-      <li class="list-group-item" *ngFor="let dataPoint of dataPoints; let i = index" (click)="playTillPoint(i)">
+  <div class="widget-gps-tracking-content" [style.width.px]="width" >
+    <div class="">
+      <div class="col-sm-6 col-md-10 col-xs-12 flex-item-v-stretch widget-gps-tracking-map" #trmapRef [style.height.px]="height" ></div>
+    </div>
+    <ul class="event-list list-group col-sm-6 col-md-2 col-xs-12 event-list flex-item-v-stretch modal-inner-scroll" [style.height.px]="height">
+      <h4 class="heading">Tracking events</h4>
+      <div *ngIf="dataPoints && dataPoints.length === 0">
+        <hr style="margin:0;" />
+        <div class=" c8y-empty-state text-left">
+          <h1 class="c8y-icon c8y-icon-location c8y-icon-duocolor"></h1>
+          <p>No tracking events found</p>
+        </div>
+      </div>
+      <li class="list-group-item tracking-event" *ngFor="let dataPoint of dataPoints; let i = index" (click)="playTillPoint(i)">
         <div class="list-item-icon">
           <i c8y-icon="c8y-location" class="c8y-icon c8y-icon-location"></i></div>
-        {{dataPoint.time | date : 'short'}} {{dataPoint.c8y_Position.lat}} {{dataPoint.c8y_Position.lng}}
+        {{dataPoint.time | date : 'medium'}}
       </li>
     </ul>
   </div>
