@@ -1,51 +1,53 @@
 <div (resized)="onResized($event)" class="trackingReplay-map-root">
   <div #trInfoRef>
     <div class="tr-map-header-bar">
-      <div class="datetime-picker">
-        <div class="form-group datepicker">
-          <input class="form-control" 
-                placeholder="Date" 
-                bsDatepicker
-                [bsConfig]="{ customTodayClass: 'today' }" 
-                (ngModelChange)="onDateTimeChange()" 
-                [(ngModel)]="mmStartDate"
-                placeholder="Start Date"
-                />
+      <div class="datetime-menu">
+        <div class="datetime-picker">
+          <div class="form-group datepicker">
+            <input class="form-control" 
+                  placeholder="Date" 
+                  bsDatepicker
+                  [bsConfig]="{ customTodayClass: 'today' }" 
+                  (ngModelChange)="onDateTimeChange()" 
+                  [(ngModel)]="mmStartDate"
+                  placeholder="Start Date"
+                  />
+          </div>
+          <timepicker class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()">
+          </timepicker>
         </div>
-        <timepicker class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()">
-        </timepicker>
-      </div>
-      <div class="datetime-picker navbar-form ">
-        <div class="form-group datepicker">
-          <input class="form-control" 
-          placeholder="Date" 
-          [bsConfig]="{ customTodayClass: 'today' }" 
-          bsDatepicker
-          (ngModelChange)="onDateTimeChange()" 
-          [(ngModel)]="mmEndDate" 
-          placeholder="End Date"/>
+        <div class="datetime-picker navbar-form ">
+          <div class="form-group datepicker">
+            <input class="form-control" 
+            placeholder="Date" 
+            [bsConfig]="{ customTodayClass: 'today' }" 
+            bsDatepicker
+            (ngModelChange)="onDateTimeChange()" 
+            [(ngModel)]="mmEndDate" 
+            placeholder="End Date"/>
+          </div>
+          <timepicker class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()"></timepicker>
         </div>
-        <timepicker class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()"></timepicker>
-      </div>
-      <div class="navbar-form ">
-        <div class="c8y-select-wrapper">
-          <select class="form-control" [(ngModel)]="dropdownValue"  (change)="onDropdownChange($event.target.value)">
-            <option label="Last minute" value="lastMinute">Last minute</option>
-            <option label="Last hour" value="lastHour" selected="selected">Last hour</option>
-            <option label="Last day" value="lastDay">Last day</option>
-            <option label="Last week" value="lastWeek">Last week</option>
-            <option label="Last month" value="lastMonth">Last month</option>
-            <option label="Custom" value="custom">Custom</option>
-          </select>
-          <span>
-          </span>
+        <div class="navbar-form ">
+          <div class="c8y-select-wrapper">
+            <select class="form-control" [(ngModel)]="dropdownValue"  (change)="onDropdownChange($event.target.value)">
+              <option label="Last minute" value="lastMinute">Last minute</option>
+              <option label="Last hour" value="lastHour" selected="selected">Last hour</option>
+              <option label="Last day" value="lastDay">Last day</option>
+              <option label="Last week" value="lastWeek">Last week</option>
+              <option label="Last month" value="lastMonth">Last month</option>
+              <option label="Custom" value="custom">Custom</option>
+            </select>
+            <span>
+            </span>
+          </div>
         </div>
-      </div>
-      <div class="btn-group">
-        <button type="button" title="Filter date range" class="btn btn-default btn-sm" (click)="filter()">
-        <i c8y-icon="filter" class="fa fw fa-filter"></i>
-       </button>
-      </div>
+        <div class="btn-group">
+          <button type="button" title="Filter date range" class="btn btn-default btn-sm" (click)="filter()">
+          <i c8y-icon="filter" class="fa fw fa-filter"></i>
+        </button>
+        </div>
+    </div>
       <ul class="nav navbar-nav navbar-right">
         <li class="navbar-form">
           <div class="btn-group">

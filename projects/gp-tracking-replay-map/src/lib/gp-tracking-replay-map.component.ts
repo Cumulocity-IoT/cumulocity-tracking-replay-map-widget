@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, isDevMode, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import * as moment_ from 'moment';
 import * as MarkerImage from './marker-icon';
 import { EventService } from '@c8y/client';
@@ -11,8 +11,7 @@ declare global {
 
 import 'leaflet2/dist/leaflet.js';
 import { MovingMarkerService } from './movingMarker.service';
-import { AngularResizedEventModule, ResizedEvent } from 'angular-resize-event';
-import { GpTrackingReplayMapService } from './gp-tracking-replay-map.service';
+import { ResizedEvent } from 'angular-resize-event';
 import { isObject } from 'util';
 const L: any = window.L;
 const moment = moment_;
@@ -25,16 +24,12 @@ const moment = moment_;
 export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   inputConfig: any;
   dataPoints: any;
-  maxLat: any;
-  minLat: any;
-  maxLong: any;
-  minLong: any;
   mapBounds: any;
   pLine: any;
   pArray: any = [];
   duration: number;
+  // tslint:disable-next-line: variable-name
   _popup: any;
-  popupContent: string = 'lat: ';
   @Input() set config(newConfig: any) {
     this.inputConfig = newConfig;
     if (this.map) {
@@ -81,12 +76,11 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   dropdownValue: string;
   constructor(
     private movingMarkerService: MovingMarkerService,
-    private tpMapService: GpTrackingReplayMapService,
     private events: EventService) { }
 
   ngOnInit() {
     this.mmStartDate = moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ssZ');
-    this.mmEndDate = moment().format('YYYY-MM-DDTHH:mm:ssZ'); // '2021-05-06T18:40:05+05:30'
+    this.mmEndDate = moment().format('YYYY-MM-DDTHH:mm:ssZ');
     this.dropdownValue = 'lastHour';
 
     this.initializeMap(true);
@@ -100,8 +94,10 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   refresh() {
     this.initializeMap(false);
   }
+  /*
+  * change the date/time according to the dropdown selected
+  */
   onDropdownChange(value) {
-    console.log(value);
     if (value === 'lastMinute') {
       this.mmStartDate = moment().subtract(1, 'm').format('YYYY-MM-DDTHH:mm:ssZ');
       this.mmEndDate = moment().format('YYYY-MM-DDTHH:mm:ssZ');
@@ -131,7 +127,7 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Intialzie map and load confiuration parameter. if it is not first call then clear all subscriptions
+   * Initialzie map and load confiuration parameter. if it is not first call then clear all subscriptions
    */
   protected initializeMap(isFirstCall): void {
     this.mapDiv = this.mapDivRef.nativeElement;
@@ -153,7 +149,6 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     this.mapLoaded = true;
     this.updateMapSize(null, null);
     this.renderMap();
-    // this.renderDeviceOnMap(this.deviceId);
     this.filter();
   }
 
@@ -168,13 +163,10 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   protected updateMapSize(w: number, h: number): void {
     if (w > 0 && h > 0) {
       this.width = w - 20;
-      this.height = h - this.mapInfosDiv.offsetHeight - 10; // 10px from styling :/
+      this.height = h - this.mapInfosDiv.offsetHeight - 20; // 20px from styling :/
     } else {
       this.width = this.mapDiv.parentElement.offsetWidth - 20;
-      this.height = this.mapDiv.parentElement.offsetHeight - 20;
-      // this.mapDiv.parentElement.offsetHeight -
-      // this.mapInfosDiv.offsetHeight -
-      // 10; // 10px from styling :/
+      this.height = this.mapDiv.parentElement.offsetHeight - 20;  // 20px from styling :/
     }
   }
 
@@ -220,72 +212,11 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * Render a Device on Map
-   */
-  protected renderDeviceOnMap(deviceId): void {
-    if (deviceId) {
-      this.tpMapService
-        .getTargetObject(deviceId) // this.config.device.id
-        .then((mo) => {
-          this.addSingleDeviceToMap(mo);
-        })
-        .catch((err) => {
-          if (isDevMode()) {
-            console.log(
-              '+-+- ERROR while getting context object details for dashboard ',
-              err
-            );
-          }
-        });
-    } else {
-      this.addLayerToMap(null);
-    }
-  }
-  /**
-   * render single device on map based on its position
-   */
-  private addSingleDeviceToMap(device: any): void {
-    if (
-      device &&
-      device.c8y_Position &&
-      device.c8y_Position.lat &&
-      device.c8y_Position.lng
-    ) {
-      const myIcon = L.icon({
-        iconUrl: MarkerImage.markerIcon,
-        iconSize: [25, 41],
-        iconAnchor: [12.5, 41]
-      });
-      /* this.startingPoints = L.latLng(device.c8y_Position);
-      this.movingMarker = L.Marker.movingMarker(
-        [this.startingPoints, this.startingPoints],
-        [1000],
-        { icon: myIcon }
-      );
-      const mapBounds = new L.LatLngBounds(
-        this.movingMarker.getLatLng(),
-        this.movingMarker.getLatLng()
-      );
-      this.map.addLayer(this.movingMarker);
-      this.addLayerToMap(mapBounds); */
-    }
-  }
-
-
-
-  /**
-   * THis method is used to load all layers(marker, geofence, heatmap, etc) on map based on given configuration
-   */
-  private addLayerToMap(mapBounds: any) {
-    if (this.map) {
-      if (!mapBounds) {
-        mapBounds = new L.LatLngBounds([0, 0], [0, 0]);
-      }
-      this.map.flyToBounds(mapBounds, { maxZoom: this.initialMaxZoom });
-    }
-  }
-
+  /* The play button should:
+  * draw the polyline
+  * run the marker on the polyLine
+  * and resume if pause
+  */
   play() {
     if (this.movingMarker) {
       if (this.movingMarker.isPaused()) {
@@ -295,15 +226,16 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
         this.duration = 1000;
         this.movingMarker.stop();
         if (this.dataPoints && this.dataPoints.length > 0) {
-
-          // this.movingMarker.moveTo(this.dataPoints[0].c8y_Position, this.duration);
-          // this.mapBounds = new L.LatLngBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position]);
           this.drawPolyLine(this.dataPoints.length - 1);
           this.movingMarker.start();
         }
       }
     }
   }
+
+  /*
+  * Pause when clicked
+  */
   pause() {
     if (this.movingMarker) {
       this.movingMarker.pause();
@@ -312,12 +244,23 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
 
   }
 
+  /*
+  * Check if the marker is moving
+  * to show the pause button
+  */
+
   isRunning() {
     if (this.movingMarker) {
       return this.movingMarker.isRunning();
 
     }
   }
+
+  /*
+  * Define the initial point
+  * If there are multiple points add them to line array and define the map boundaries
+  * Else if only one point add that point for pointing marker position
+  */
   drawPolyLine(pointIndex) {
     const mapBounds = new L.LatLngBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position]);
     if (pointIndex > 0) {
@@ -332,15 +275,13 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
 
     } else {
       this.movingMarker.addLatLng(this.dataPoints[0].c8y_Position, this.duration);
-      // this.map.flyToBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position], { maxZoom: this.initialMaxZoom });
-     /*  this.map.setView(
-        [this.dataPoints[0].c8y_Position.getCenter().lat, this.dataPoints[0].c8y_Position.getCenter().lng],
-        this.initialMinZoom
-      ); */
 
     }
 
   }
+  /*
+  * Change the time duration of moving markers
+  */
   changeDuration(pointIndex) {
     for (let i = 0; i < pointIndex; i++) {
       const pLine = L.polyline([this.dataPoints[i].c8y_Position, this.dataPoints[i + 1].c8y_Position]);
@@ -349,6 +290,9 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
       this.movingMarker.addLatLng(this.dataPoints[i + 1].c8y_Position, this.duration);
     }
   }
+
+  /* Removes already drawn polyline
+  */
   removePolyLine() {
     if (this.pArray.length > 0) {
       this.pArray.forEach(pLine => {
@@ -359,6 +303,9 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     }
 
   }
+  /**
+   * Play the marker till the point chosen
+   */
 
   playTillPoint(pointIndex) {
     this.duration = 1000;
@@ -368,6 +315,14 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     this.movingMarker.start();
 
   }
+
+  /*
+  * Pause the moving marker
+  * change duration time
+  * remove polylines as for change duration new lines need to be drawn
+  * Resume moving marker from the position it left
+  */
+
   faster() {
     if (this.movingMarker) {
       this.movingMarker.pause();
@@ -393,7 +348,23 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   }
   showMarkerLatLng(e) {
     this._popup._content = 'lat: ' + e.latlng.lat + ', lng: ' + e.latlng.lng;
-    // this.popupContent = 'lat: ' + e.latlng.lat + ', lng: ' + e.latlng.lng;
+
+  }
+  addMarker() {
+    this.startingPoints = L.latLng(this.dataPoints[0].c8y_Position);
+    if (this.movingMarker) {
+      this.movingMarker.removeFrom(this.map);
+    }
+    this.movingMarker = L.Marker.movingMarker(
+    [this.startingPoints, this.startingPoints],
+    [1000],
+    { icon: this.myIcon },
+  );
+    this.movingMarker.on('click', this.showMarkerLatLng);
+    this.movingMarker.bindPopup('lat: ' + this.movingMarker.getLatLng().lat + ',<br> lng: ' + this.movingMarker.getLatLng().lng );
+
+    this.movingMarker.addTo(this.map);
+    this.map.flyToBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position], { maxZoom: this.initialMaxZoom });
 
   }
   async filter() {
@@ -417,28 +388,11 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     if (response) {
       this.dataPoints = response;
       if (this.dataPoints && this.dataPoints.length > 0) {
-        this.startingPoints = L.latLng(this.dataPoints[0].c8y_Position);
-        if (this.movingMarker) {
-          this.movingMarker.removeFrom(this.map);
-        }
-        this.movingMarker = L.Marker.movingMarker(
-        [this.startingPoints, this.startingPoints],
-        [1000],
-        { icon: this.myIcon },
-      );
-        this.movingMarker.on('click', this.showMarkerLatLng);
-        this.movingMarker.bindPopup(this.popupContent);
-
-        this.movingMarker.addTo(this.map);
-        this.map.flyToBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position], { maxZoom: this.initialMaxZoom });
-
-
-      } else {
-        // const mapBounds = new L.LatLngBounds([0, 0], [0, 0]);
-        this.map.fitWorld();
-        // this.map.flyToBounds(mapBounds, { maxZoom: this.initialMinZoom });
-
+       this.addMarker();
       }
+      } else {
+        this.map.fitWorld();
+
     }
     return response;
   }
