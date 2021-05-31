@@ -2,7 +2,7 @@
   "name": "cumulocity-tracking-replay-map-widget",
   "version": "1.0.0",
   "description": "Displays track lines of tracking device with replay feature on map.",
-  "author": "Darpankumar Lalani - Software AG, Global Presales",
+  "author": "Joshika Agrawal - Software AG, Global Presales",
   "license": "Apache 2.0",
   "scripts": {
     "ng": "ng",

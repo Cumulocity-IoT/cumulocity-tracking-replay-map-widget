@@ -5,7 +5,7 @@
     "dist/bundle-src/custom-widget.js": "tracking-replay-runtime-widget-CustomWidget"
   },
   "version": "1.0.0",
-  "description": "Runtime package.json for library widget (written by Software AG Global Presales)",
-  "author": "Darpankumar Lalani - Software AG, Global Presales",
+  "description": "Displays track lines of tracking device with replay feature on map.",
+  "author": "Joshika Agrawal - Software AG, Global Presales",
   "license": "Apache 2.0"
 }

@@ -1,6 +1,6 @@
 {
     "/": {
-    "target": "https://asset-tracking.eu-latest.cumulocity.com/",
+    "target": "",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "info"
