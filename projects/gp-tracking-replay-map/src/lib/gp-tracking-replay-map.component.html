@@ -11,9 +11,10 @@
                   (ngModelChange)="onDateTimeChange()" 
                   [(ngModel)]="mmStartDate"
                   placeholder="Start Date"
+                  title="Start Date"
                   />
           </div>
-          <timepicker class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()">
+          <timepicker title="Start Time" class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()">
           </timepicker>
         </div>
         <div class="datetime-picker navbar-form ">
@@ -24,9 +25,11 @@
             bsDatepicker
             (ngModelChange)="onDateTimeChange()" 
             [(ngModel)]="mmEndDate" 
-            placeholder="End Date"/>
+            placeholder="End Date"
+            title="End Date"
+            />
           </div>
-          <timepicker class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()"></timepicker>
+          <timepicker title="End Time"class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()"></timepicker>
         </div>
         <div class="navbar-form ">
           <div class="c8y-select-wrapper">
