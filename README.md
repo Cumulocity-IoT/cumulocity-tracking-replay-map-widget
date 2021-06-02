@@ -141,7 +141,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
     ```
 
-2. Grab the Data Points Map **[Latest Release Binary]**
+2. Grab the Tracking Replay Map **[Latest Release Binary]**
 
 3. Install the Binary file in your project.
 

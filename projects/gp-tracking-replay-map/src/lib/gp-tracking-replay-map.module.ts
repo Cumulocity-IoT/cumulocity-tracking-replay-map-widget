@@ -23,7 +23,7 @@ import { GpTrackingReplayMapComponent } from './gp-tracking-replay-map.component
 import { GpTrackingReplayMapService } from './gp-tracking-replay-map.service';
 import { MovingMarkerService } from './movingMarker.service';
 import * as preview from './preview-image';
-import { BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
