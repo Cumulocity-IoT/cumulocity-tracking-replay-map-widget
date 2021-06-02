@@ -19,7 +19,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
 *  **Configurable Zoom:**  Select and configurable zoom which is best fit for your map.  
 
-*  **Support single device and group devices:** Based on configuration during widget configuration. 
+*  **Configurable Device:** Based on configuration during widget configuration a device can be selected. 
 
   
 
@@ -37,9 +37,9 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 **Supported Cumulocity Environments:**
   
 
-*  **App Builder:** Tested with Cumulocity App Builder version 1.2.2.  
+*  **App Builder:** Tested with Cumulocity App Builder version 1.2.6.  
 
-*  **Cockpit Application:** Tested with Cockpit 1006.6.8 with [Patch Fix](https://www.npmjs.com/package/cumulocity-runtime-widget-loader).
+*  **Cockpit Application:** Tested with Cockpit 1009.0.4 with [Patch Fix](https://www.npmjs.com/package/cumulocity-runtime-widget-loader).
 
   
 **Requirements:**
@@ -56,11 +56,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
 "angular-resize-event": "^1.1.1"
 
-"fontawesome": "4.7.2"
-
 "leaflet2": "npm:leaflet@^1.6.0"
-
-"@angular/material": "8.2.3"
 
 ```
 
@@ -75,7 +71,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
     ```
 
-    npm i angular-resize-event@1.1.1 fontawesome@4.7.2 leaflet2@npm:leaflet@^1.6.0 @angular/material@8.2.3
+    npm i angular-resize-event@1.1.1 leaflet2@npm:leaflet@^1.6.0
 
     ```
 2. Grab the Replay Tracking Map **[Latest Release Binary]**.
@@ -141,7 +137,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
     ```
 
-    npm i angular-resize-event@1.1.1 fontawesome@4.7.2 leaflet2@npm:leaflet@^1.6.0 @angular/material@8.2.3
+    npm i angular-resize-event@1.1.1 leaflet2@npm:leaflet@^1.6.0
 
     ```
 
@@ -164,7 +160,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
     imports: [
 
 
-    GpDataPointsMapModule
+    GpTrackingReplayMapModule
     
 
     ]
@@ -312,7 +308,7 @@ Congratulations! Tracking Replay Map is configured.
 
  
 
-*  **Target assets or devices:** User can select a device or a group. Based on device/group, list of devices will be display on Map. Only those devices are visible on map where position attributes are configured. 
+*  **Target assets or devices:** User can select a device. Based on device, list of devices will be display on Map. Only those devices are visible on map where position attributes are configured. 
 
 
 
@@ -327,8 +323,6 @@ Congratulations! Tracking Replay Map is configured.
 	* **Last day**
 	* **Last week**
 	* **Last month**
-	* **Custom**
-	*  **Filter button** : Needs to be clicked to get data
 
 *   **Slower**: Reduces the marker speed to half.
 *  **Play/ Pause**: Marker traces the path when played and can be paused at any instance.

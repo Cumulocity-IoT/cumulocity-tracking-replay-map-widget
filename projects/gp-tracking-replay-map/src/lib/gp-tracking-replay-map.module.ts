@@ -27,19 +27,6 @@ import { BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ng
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-const materialModules = [
-  MatFormFieldModule,
-  MatInputModule,
-  MatIconModule,
-  MatDatepickerModule,
-  MatNativeDateModule
-]
 @NgModule({
   declarations: [GpTrackingReplayMapComponent, GpTrackingReplayMapConfigComponent],
   imports: [
@@ -48,7 +35,6 @@ const materialModules = [
     BsDatepickerModule.forRoot(),
     TimepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
-    materialModules
   ],
   entryComponents: [GpTrackingReplayMapComponent, GpTrackingReplayMapConfigComponent],
   exports: [GpTrackingReplayMapComponent, GpTrackingReplayMapConfigComponent],

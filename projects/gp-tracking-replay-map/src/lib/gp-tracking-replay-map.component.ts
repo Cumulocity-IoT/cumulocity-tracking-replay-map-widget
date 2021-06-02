@@ -401,7 +401,11 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
       revert: true,
       source: this.deviceId,
     };
-    const response = (await this.events.list(param)).data;
+    let response;
+    if (this.deviceId) {
+      response = (await this.events.list(param)).data;
+
+    }
     if (response) {
       this.dataPoints = response;
       if (this.dataPoints && this.dataPoints.length > 0) {
