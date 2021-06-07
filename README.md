@@ -74,7 +74,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
     npm i angular-resize-event@1.1.1 leaflet2@npm:leaflet@^1.6.0
 
     ```
-2. Grab the Replay Tracking Map **[Latest Release Binary]**.
+2. Grab the Replay Tracking Map **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.0/gp-tracking-replay-map-1.0.0.tgz)**.
 
 
 3. Install the Binary file in app builder.
@@ -141,7 +141,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
     ```
 
-2. Grab the Tracking Replay Map **[Latest Release Binary]**
+2. Grab the Tracking Replay Map **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.0/gp-tracking-replay-map-1.0.0.tgz)**
 
 3. Install the Binary file in your project.
 
