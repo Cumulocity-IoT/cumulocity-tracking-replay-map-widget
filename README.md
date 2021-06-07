@@ -1,6 +1,6 @@
 
-  # Cumulocity Tracking Replay Widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-data-points-map-widget/files/6573002/tracking-replay-runtime-widget-1.0.0.zip)
-
+  # Cumulocity Tracking Replay Widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>]
+(https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.0/tracking-replay-runtime-widget-1.0.0.zip)
   
 The Cumulocity Tracking Replay widget help you to displays track lines of the tracking device with replay feature on map.
 
@@ -28,7 +28,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
   
 ### Runtime Widget Deployment?
 
-* This widget support runtime deployment. Download [Runtime Binary](https://github.com/SoftwareAG/cumulocity-data-points-map-widget/files/6573002/tracking-replay-runtime-widget-1.0.0.zip)  and follow runtime deployment instructions from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader).
+* This widget support runtime deployment. Download [Runtime Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.0/tracking-replay-runtime-widget-1.0.0.zip)  and follow runtime deployment instructions from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader).
   
 
 ### Installation of widget through Appbuilder or Cockipt Deployment?
