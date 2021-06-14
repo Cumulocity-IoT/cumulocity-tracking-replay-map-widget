@@ -1,4 +1,4 @@
-<div (resized)="onResized($event)" class="trackingReplay-map-root">
+<div (resized)="onResized($event)" class="trackingReplay-map-root" #parentRef>
   <div #trInfoRef>
     <div class="tr-map-header-bar">
       <div class="datetime-menu">
@@ -75,7 +75,7 @@
       </ul>
     </div>
   </div>
-  <div class="widget-gps-tracking-content" [style.width.px]="width" >
+  <div class="widget-gps-tracking-content">
     <div class="">
       <div class="col-sm-6 col-md-10 col-xs-12 flex-item-v-stretch widget-gps-tracking-map" #trmapRef [style.height.px]="height" ></div>
     </div>

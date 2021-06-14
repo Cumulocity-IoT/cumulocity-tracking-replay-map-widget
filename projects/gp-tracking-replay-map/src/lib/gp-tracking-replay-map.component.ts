@@ -57,10 +57,11 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     return this.inputConfig;
   }
   @ViewChild('trmapRef', { static: true }) protected mapDivRef: ElementRef;
-  @ViewChild('trInfoRef', { static: true })
-  protected mapInfosDivRef: ElementRef;
+  @ViewChild('trInfoRef', { static: true }) protected mapInfosDivRef: ElementRef;
+  @ViewChild('parentRef', { static: true }) protected parentRef: ElementRef;
   protected mapDiv: HTMLDivElement;
   protected mapInfosDiv: HTMLDivElement;
+  protected parentDiv: HTMLDivElement;
   protected map: any;
   protected initialMinZoom = 3;
   protected layerControl = L.control.layers([], [], {});
@@ -149,6 +150,7 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   protected initializeMap(isFirstCall): void {
     this.mapDiv = this.mapDivRef.nativeElement;
     this.mapInfosDiv = this.mapInfosDivRef.nativeElement;
+    this.parentDiv = this.parentRef.nativeElement;
 
 
     if (this.inputConfig) {
@@ -179,11 +181,11 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
 
   protected updateMapSize(w: number, h: number): void {
     if (w > 0 && h > 0) {
-      this.width = w - 20;
+      this.width = w;
       this.height = h - this.mapInfosDiv.offsetHeight - 20; // 20px from styling :/
     } else {
-      this.width = this.mapDiv.parentElement.offsetWidth - 20;
-      this.height = this.mapDiv.parentElement.offsetHeight - 20;  // 20px from styling :/
+      this.width = this.mapDiv.offsetWidth;
+      this.height = this.parentDiv.offsetHeight - this.mapInfosDiv.offsetHeight - 20;
     }
   }
 
@@ -410,6 +412,7 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
       this.dataPoints = response;
       if (this.dataPoints && this.dataPoints.length > 0) {
        this.addMarker();
+       this.drawPolyLine(this.dataPoints.length - 1);
       }
       } else {
         this.map.fitWorld();
