@@ -1,8 +1,8 @@
 <div (resized)="onResized($event)" class="trackingReplay-map-root" #parentRef>
   <div #trInfoRef>
-    <div class="tr-map-header-bar">
-      <div class="datetime-menu">
-        <div class="datetime-picker">
+    <div class="col-sm-12">
+      <div class="col-sm-10 datetime-menu">
+        <div class="datetime-picker  navbar-form mb-10">
           <div class="form-group datepicker">
             <input class="form-control" 
                   placeholder="Date" 
@@ -17,7 +17,7 @@
           <timepicker title="Start Time" class="form-group" placeholder="Start Time" [(ngModel)]="mmStartDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()">
           </timepicker>
         </div>
-        <div class="datetime-picker navbar-form ">
+        <div class="datetime-picker navbar-form mb-10">
           <div class="form-group datepicker">
             <input class="form-control" 
             placeholder="Date" 
@@ -31,7 +31,7 @@
           </div>
           <timepicker title="End Time"class="form-group" placeholder=" End Time" [(ngModel)]="mmEndDate" [showSpinners]="false" [showMeridian]="false" (change)="onDateTimeChange()"></timepicker>
         </div>
-        <div class="navbar-form ">
+        <div class="navbar-form mb-10">
           <div class="c8y-select-wrapper">
             <select class="form-control" [(ngModel)]="dropdownValue"  (change)="onDropdownChange($event.target.value)">
               <option label="Last minute" value="lastMinute">Last minute</option>
@@ -45,15 +45,13 @@
             </span>
           </div>
         </div>
-        <div class="btn-group">
+        <div class="btn-group  navbar-form mb-10">
           <button type="button" title="Filter date range" class="btn btn-default btn-sm" (click)="filter()">
           <i c8y-icon="filter" class="fa fw fa-filter"></i>
         </button>
         </div>
     </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="navbar-form">
-          <div class="btn-group">
+          <div class="btn-group action-button-menu mb-10">
             <button class="btn btn-default btn-sm" title="Slower" (click)="slower()">
               <i c8y-icon="fast-backward" class="fa fw fa-fast-backward"></i>
             </button>
@@ -71,8 +69,7 @@
               <i c8y-icon="repeat" class="fa fw fa-repeat"></i>
             </button>
           </div>
-        </li>
-      </ul>
+       
     </div>
   </div>
   <div class="widget-gps-tracking-content">

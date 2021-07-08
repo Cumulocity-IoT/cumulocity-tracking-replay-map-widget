@@ -182,10 +182,10 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   protected updateMapSize(w: number, h: number): void {
     if (w > 0 && h > 0) {
       this.width = w;
-      this.height = h - this.mapInfosDiv.offsetHeight - 20; // 20px from styling :/
+      this.height = h - this.mapInfosDiv.offsetHeight - 35; // 20px from styling :/
     } else {
       this.width = this.mapDiv.offsetWidth;
-      this.height = this.parentDiv.offsetHeight - this.mapInfosDiv.offsetHeight - 20;
+      this.height = this.parentDiv.offsetHeight - this.mapInfosDiv.offsetHeight - 35;
     }
   }
 
