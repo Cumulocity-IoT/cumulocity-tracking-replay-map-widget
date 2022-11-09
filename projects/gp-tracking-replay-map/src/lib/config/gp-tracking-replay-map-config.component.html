@@ -1,0 +1,15 @@
+<div class="form-group">
+    <div style="display: flex;">
+        <div style="flex-grow:1 ; margin-right: 5px;">
+            <label translate>Event Type</label>
+            <input class="form-control" style="width: 100%" type="text" name="config.eventType"
+                [(ngModel)]="config.eventType" />
+        </div>
+        <div style="flex-grow: 1; margin-right: 5px;">
+            <label translate>Fragment Type</label>
+            <input class="form-control" style="width: 100%" type="text" name="config.fragmentType"
+                [(ngModel)]="config.fragmentType" />
+            <span><p style="font-size: 12px;color:orange;">Fragment type should consist of Latitude(lat) and Longitude(lng) values.</p></span>
+        </div>
+    </div><br>
+</div>

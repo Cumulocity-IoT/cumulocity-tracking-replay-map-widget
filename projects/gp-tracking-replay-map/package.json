@@ -1,9 +1,9 @@
 {
   "name": "gp-tracking-replay-map",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "peerDependencies": {
-    "@angular/common": "^8.2.0",
-    "@angular/core": "^8.2.0"
+    "@angular/common": "^11.1.2",
+    "@angular/core": "^11.1.2"
   },
   "description": "Displays track lines of tracking device with replay feature on map.",
   "author": "Joshika Agrawal - Software AG, Global Presales",

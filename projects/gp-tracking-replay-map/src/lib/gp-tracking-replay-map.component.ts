@@ -30,6 +30,7 @@ import 'leaflet2/dist/leaflet.js';
 import { MovingMarkerService } from './movingMarker.service';
 import { ResizedEvent } from 'angular-resize-event';
 import { isObject } from 'util';
+import { AlertService } from '@c8y/ngx-components';
 const L: any = window.L;
 const moment = moment_;
 
@@ -40,7 +41,7 @@ const moment = moment_;
 })
 export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   inputConfig: any;
-  dataPoints: any;
+  dataPoints: any = [];
   mapBounds: any;
   pLine: any;
   pArray: any = [];
@@ -94,7 +95,8 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   dropdownValue: string;
   constructor(
     private movingMarkerService: MovingMarkerService,
-    private events: EventService) { }
+    private events: EventService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.mmStartDate = moment().subtract(1, 'hours').format('YYYY-MM-DDTHH:mm:ssZ');
@@ -281,19 +283,19 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   * Else if only one point add that point for pointing marker position
   */
   drawPolyLine(pointIndex) {
-    const mapBounds = new L.LatLngBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position]);
+    const mapBounds = new L.LatLngBounds([this.dataPoints[0][this.inputConfig.fragmentType], this.dataPoints[0][this.inputConfig.fragmentType]]);
     if (pointIndex > 0) {
       for (let i = 0; i < pointIndex; i++) {
-        const pLine = L.polyline([this.dataPoints[i].c8y_Position, this.dataPoints[i + 1].c8y_Position]);
+        const pLine = L.polyline([this.dataPoints[i][this.inputConfig.fragmentType], this.dataPoints[i + 1][this.inputConfig.fragmentType]]);
         pLine.addTo(this.map);
         this.pArray.push(pLine);
-        this.movingMarker.addLatLng(this.dataPoints[i + 1].c8y_Position, this.duration);
-        mapBounds.extend(this.dataPoints[i + 1].c8y_Position);
+        this.movingMarker.addLatLng(this.dataPoints[i + 1][this.inputConfig.fragmentType], this.duration);
+        mapBounds.extend(this.dataPoints[i + 1][this.inputConfig.fragmentType]);
       }
       this.map.fitBounds(mapBounds);
 
     } else {
-      this.movingMarker.addLatLng(this.dataPoints[0].c8y_Position, this.duration);
+      this.movingMarker.addLatLng(this.dataPoints[0][this.inputConfig.fragmentType], this.duration);
 
     }
 
@@ -303,10 +305,10 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
   */
   changeDuration(pointIndex) {
     for (let i = 0; i < pointIndex; i++) {
-      const pLine = L.polyline([this.dataPoints[i].c8y_Position, this.dataPoints[i + 1].c8y_Position]);
+      const pLine = L.polyline([this.dataPoints[i][this.inputConfig.fragmentType], this.dataPoints[i + 1][this.inputConfig.fragmentType]]);
       pLine.addTo(this.map);
       this.pArray.push(pLine);
-      this.movingMarker.addLatLng(this.dataPoints[i + 1].c8y_Position, this.duration);
+      this.movingMarker.addLatLng(this.dataPoints[i + 1][this.inputConfig.fragmentType], this.duration);
     }
   }
 
@@ -370,7 +372,7 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
 
   }
   addMarker() {
-    this.startingPoints = L.latLng(this.dataPoints[0].c8y_Position);
+    this.startingPoints = L.latLng(this.dataPoints[0][this.inputConfig.fragmentType]);
     if (this.movingMarker) {
       this.movingMarker.removeFrom(this.map);
     }
@@ -383,7 +385,7 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     this.movingMarker.bindPopup('lat: ' + this.movingMarker.getLatLng().lat + ',<br> lng: ' + this.movingMarker.getLatLng().lng );
 
     this.movingMarker.addTo(this.map);
-    this.map.flyToBounds([this.dataPoints[0].c8y_Position, this.dataPoints[0].c8y_Position], { maxZoom: this.initialMaxZoom });
+    this.map.flyToBounds([this.dataPoints[0][this.inputConfig.fragmentType], this.dataPoints[0][this.inputConfig.fragmentType]], { maxZoom: this.initialMaxZoom });
 
   }
   async filter() {
@@ -398,18 +400,32 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     const param = {
       dateFrom: startDate,
       dateTo: endDate,
-      fragmentType: 'c8y_Position',
+     // fragmentType: 'c8y_Position',
+      type: this.inputConfig.eventType,
       pageSize: 100,
       revert: true,
-      source: this.deviceId,
+      source: this.deviceId
     };
     let response;
     if (this.deviceId) {
       response = (await this.events.list(param)).data;
-
     }
     if (response) {
-      this.dataPoints = response;
+      this.dataPoints = [];
+      let count = 0;
+      response.forEach((res) => {
+        if(res.hasOwnProperty(this.inputConfig.fragmentType)) {
+          if (res[this.inputConfig.fragmentType].hasOwnProperty('lat') && res[this.inputConfig.fragmentType].hasOwnProperty('lng')) {
+            this.dataPoints.push(res);
+          } else {
+            count++;
+          }
+        }
+      });
+      if (count > 0) {
+        this.alertService.danger("Latitude(lat) and Longitude(lng) values are missing for "+count+ " event(s) of type - "+this.inputConfig.eventType);
+      }
+      //this.dataPoints = response;
       if (this.dataPoints && this.dataPoints.length > 0) {
        this.addMarker();
        this.drawPolyLine(this.dataPoints.length - 1);

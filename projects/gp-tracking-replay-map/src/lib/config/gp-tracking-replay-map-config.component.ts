@@ -19,8 +19,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lib-gp-tracking-replay-map-config',
-  template: `
-  `,
+  templateUrl: './gp-tracking-replay-map-config.component.html',
   styles: []
 })
 export class GpTrackingReplayMapConfigComponent implements OnInit {

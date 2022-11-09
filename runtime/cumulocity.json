@@ -8,8 +8,8 @@
   },
   "manifest": {
     "noAppSwitcher": true,
-    "requiredPlatformVersion": ">=1010.0.4",
-    "version": "1.0.3",
+    "requiredPlatformVersion": ">=1011.0.0",
+    "version": "2.0.0",
     "license": "Apache 2.0",
     "description": "The Cumulocity Tracking Replay widget help you to displays track lines of the tracking device with replay feature on map.",
     "author": "Software AG, Global Presales"
