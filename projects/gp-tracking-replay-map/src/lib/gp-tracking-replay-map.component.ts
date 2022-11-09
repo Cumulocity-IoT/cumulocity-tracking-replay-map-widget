@@ -412,16 +412,19 @@ export class GpTrackingReplayMapComponent implements OnInit, AfterViewInit {
     }
     if (response) {
       this.dataPoints = [];
+      let count = 0;
       response.forEach((res) => {
         if(res.hasOwnProperty(this.inputConfig.fragmentType)) {
           if (res[this.inputConfig.fragmentType].hasOwnProperty('lat') && res[this.inputConfig.fragmentType].hasOwnProperty('lng')) {
             this.dataPoints.push(res);
           } else {
-            this.alertService.danger("Latitude(lat) and Longitude(lng) values are missing for the given fragment type.");
-            return;
+            count++;
           }
         }
       });
+      if (count > 0) {
+        this.alertService.danger("Latitude(lat) and Longitude(lng) values are missing for "+count+ " event(s) of type - "+this.inputConfig.eventType);
+      }
       //this.dataPoints = response;
       if (this.dataPoints && this.dataPoints.length > 0) {
        this.addMarker();
