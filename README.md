@@ -20,6 +20,9 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
 *  **Configurable Device:** Based on configuration during widget configuration a device can be selected. 
 
+*  **Configurable Event And Fragment Type:** Based on configuration during widget configuration, events can be filtered to get only the desired type of event.
+
+
   
 
 ## Installation
