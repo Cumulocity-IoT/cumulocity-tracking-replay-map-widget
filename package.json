@@ -34,7 +34,7 @@
     "@c8y/ngx-components": "^1011.0.12",
     "@c8y/style": "^1011.0.12",
     "angular-resize-event": "^2.1.0",
-    "leaflet2": "npm:leaflet@^1.6.0",
+    "leaflet2": "npm:leaflet@1.7.1",
     "moment": "^2.26.0",
     "rxjs": "~6.6.3",
     "tslib": "^2.0.0",
