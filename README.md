@@ -36,7 +36,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 **Supported Cumulocity Environments:**
   
 
-*  **App Builder:** Tested with Cumulocity App Builder version 1.2.6.  
+*  **App Builder:** Tested with Cumulocity App Builder version 1.3.1.  
 
 *  **Cockpit Application:** Tested with Cockpit 1009.0.4 with [Patch Fix](https://www.npmjs.com/package/cumulocity-runtime-widget-loader).
 
@@ -55,7 +55,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
 "angular-resize-event": "^1.1.1"
 
-"leaflet2": "npm:leaflet@^1.6.0"
+"leaflet2": "npm:leaflet@1.7.1"
 
 ```
 
