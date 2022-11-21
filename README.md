@@ -1,5 +1,5 @@
 
-  # Cumulocity Tracking Replay Widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.2/tracking-replay-runtime-widget-1.0.2.zip)
+  # Cumulocity Tracking Replay Widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/2.0.0/tracking-replay-runtime-widget-2.0.0.zip)
   
 The Cumulocity Tracking Replay widget help you to displays track lines of the tracking device with replay feature on map.
 
@@ -27,7 +27,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
   
 ### Runtime Widget Deployment?
 
-* This widget support runtime deployment. Download [Runtime Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.2/tracking-replay-runtime-widget-1.0.2.zip)  and use Application Builder to install your runtime widget.
+* This widget support runtime deployment. Download [Runtime Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/2.0.0/tracking-replay-runtime-widget-2.0.0.zip)  and use Application Builder to install your runtime widget.
   
 
 ### Installation of widget through Appbuilder or Cockipt Deployment?
@@ -70,7 +70,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
     ```
 
-    npm i angular-resize-event@1.1.1 leaflet2@npm:leaflet@^1.6.0
+    npm i angular-resize-event@1.1.1 leaflet2@npm:leaflet@1.7.1
 
     ```
 2. Grab the Replay Tracking Map **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.2/gp-tracking-replay-map-1.0.2.tgz)**.
@@ -140,7 +140,7 @@ The Cumulocity Tracking Replay widget help you to displays track lines of the tr
 
     ```
 
-2. Grab the Tracking Replay Map **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/1.0.2/gp-tracking-replay-map-1.0.2.tgz)**
+2. Grab the Tracking Replay Map **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/2.0.0/gp-tracking-replay-map-2.0.0.tgz)**
 
 3. Install the Binary file in your project.
 
