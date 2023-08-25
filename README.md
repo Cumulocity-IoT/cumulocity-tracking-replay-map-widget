@@ -1,5 +1,7 @@
 
   # Cumulocity Tracking Replay Widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget/releases/download/2.0.0/tracking-replay-runtime-widget-2.0.0.zip)
+
+  > ### ⚠️ This project is no longer under development. Please use [cumulocity-tracking-replay-map-widget-plugin](https://github.com/SoftwareAG/cumulocity-tracking-replay-map-widget-plugin) for Application Builder >=2.x.x and Cumulocity >=1016.x.x⚠️
   
 The Cumulocity Tracking Replay widget help you to displays track lines of the tracking device with replay feature on map.
 
